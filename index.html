@@ -13,27 +13,35 @@
 
     body {
       background: black;
-      color: #00ffcc;
+      color: white;
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       font-family: 'Courier New', monospace;
+      flex-direction: column;
     }
 
     #counter {
       font-size: 10vw;
       letter-spacing: 4px;
     }
+
+    #icon {
+      font-size: 5vw;
+      margin-bottom: 20px;
+    }
   </style>
 </head>
 <body>
 
+  <div id="icon">🔢</div>
   <div id="counter">0000</div>
 
   <script>
     let count = 0;
     let pressTimer;
+    let incremented = false;
 
     const counter = document.getElementById("counter");
 
@@ -42,6 +50,7 @@
     }
 
     document.addEventListener("mousedown", () => {
+      incremented = false;
       pressTimer = setTimeout(() => {
         count = 0;
         updateCounter();
@@ -50,12 +59,16 @@
 
     document.addEventListener("mouseup", () => {
       clearTimeout(pressTimer);
-      count++;
-      updateCounter();
+      if (!incremented) {
+        count++;
+        incremented = true;
+        updateCounter();
+      }
     });
 
     // Para móvil
     document.addEventListener("touchstart", () => {
+      incremented = false;
       pressTimer = setTimeout(() => {
         count = 0;
         updateCounter();
@@ -64,8 +77,11 @@
 
     document.addEventListener("touchend", () => {
       clearTimeout(pressTimer);
-      count++;
-      updateCounter();
+      if (!incremented) {
+        count++;
+        incremented = true;
+        updateCounter();
+      }
     });
   </script>
 
