@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Contador</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none;
+    }
+
+    body {
+      background: black;
+      color: #00ffcc;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Courier New', monospace;
+    }
+
+    #counter {
+      font-size: 10vw;
+      letter-spacing: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="counter">0000</div>
+
+  <script>
+    let count = 0;
+    let pressTimer;
+
+    const counter = document.getElementById("counter");
+
+    function updateCounter() {
+      counter.textContent = String(count).padStart(4, "0");
+    }
+
+    document.addEventListener("mousedown", () => {
+      pressTimer = setTimeout(() => {
+        count = 0;
+        updateCounter();
+      }, 3000);
+    });
+
+    document.addEventListener("mouseup", () => {
+      clearTimeout(pressTimer);
+      count++;
+      updateCounter();
+    });
+
+    // Para móvil
+    document.addEventListener("touchstart", () => {
+      pressTimer = setTimeout(() => {
+        count = 0;
+        updateCounter();
+      }, 3000);
+    });
+
+    document.addEventListener("touchend", () => {
+      clearTimeout(pressTimer);
+      count++;
+      updateCounter();
+    });
+  </script>
+
+</body>
+</html>
